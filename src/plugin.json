@@ -1,6 +1,6 @@
 {
   "name": "custom.remote.python.rabbit_mq",
-  "version": "1.005",
+  "version": "1.006",
   "metricGroup": "tech.RabbitMQ",
   "technologies": ["RabbitMQ"],
   "type": "python",
@@ -42,9 +42,8 @@
     "keymetrics": [
       {"key": "messages_ready", "displayname": "Ready", "mergeaggregation": "SUM"},
       {"key": "messages_deliver_get", "displayname": "Deliver", "mergeaggregation": "SUM"}
-    ]
-  },
-  "charts": [
+    ],
+    "charts": [
     {"group": "Messages", "title": "Message rates", "series":  [
       {"key": "messages_ack", "displayname": "Acknowledge"},
       {"key": "messages_deliver_get", "displayname": "Deliver Get"},
@@ -69,5 +68,5 @@
       {"key": "messages_ready", "displayname": "Ready", "mergeaggregation": "SUM"},
       {"key": "messages_unacknowledged", "displayname": "Unacknowledged", "mergeaggregation": "SUM"}
     ]}
-  ]
+  ]}
 }
