@@ -1,6 +1,6 @@
 {
   "name": "custom.remote.python.rabbit_mq",
-  "version": "1.006",
+  "version": "1.007",
   "metricGroup": "tech.RabbitMQ",
   "technologies": ["RabbitMQ"],
   "type": "python",
@@ -16,7 +16,15 @@
     {"key": "cluster_name", "type": "String", "defaultValue": "RabbitMQ Cluster"},
     {"key": "rabbitmq_password", "type": "Password"},
     {"key": "queues_include", "type": "Textarea", "defaultValue": ".*"},
-    {"key": "queues_ignore", "type": "Textarea"}
+    {"key": "queues_ignore", "type": "Textarea"},
+    {"key": "frequency", "type": "Integer", "defaultValue": 1},
+    {"key": "collect_messages_ready", "type": "Boolean", "defaultValue": true},
+    {"key": "collect_messages_unacknowledged", "type": "Boolean", "defaultValue": true},
+    {"key": "collect_messages_ack", "type": "Boolean", "defaultValue": true},
+    {"key": "collect_messages_deliver_get", "type": "Boolean", "defaultValue": true},
+    {"key": "collect_messages_publish", "type": "Boolean", "defaultValue": true},
+    {"key": "collect_messages_redeliver", "type": "Boolean", "defaultValue": true},
+    {"key": "collect_messages_return", "type": "Boolean", "defaultValue": true}
   ],
   "configUI": {
     "displayName": "RabbitMQ",
@@ -26,7 +34,15 @@
       {"key": "rabbitmq_password", "displayName": "RabbitMQ Password", "displayOrder": 3},
       {"key": "cluster_name", "displayName": "RabbitMQ Cluster Name", "displayHint": "This will be used as the Dynatrace group name, it does not have to match the real cluster name", "displayOrder": 4},
       {"key": "queues_include", "displayName": "Queues to include", "displayHint": "One regex expression per line, use .* to monitor all", "displayOrder": 5},
-      {"key": "queues_ignore", "displayName": "Queues to ignore", "displayHint": "One regex expression per line, has precedence over include", "displayOrder": 6}
+      {"key": "queues_ignore", "displayName": "Queues to ignore", "displayHint": "One regex expression per line, has precedence over include", "displayOrder": 6},
+      {"key": "frequency", "displayName": "Frequency (minutes)", "displayOrder": 7},
+      {"key": "collect_messages_ready", "displayName": "Collect Ready", "displayOrder": 7},
+      {"key": "collect_messages_unacknowledged", "displayName": "Collect Unacknowledged", "displayOrder": 8},
+      {"key": "collect_messages_ack", "displayName": "Collect Acknowledge", "displayOrder": 9},
+      {"key": "collect_messages_deliver_get", "displayName": "Collect Deliver Get", "displayOrder": 10},
+      {"key": "collect_messages_publish", "displayName": "Collect Publish", "displayOrder": 11},
+      {"key": "collect_messages_redeliver", "displayName": "Collect Redeliver", "displayOrder": 12},
+      {"key": "collect_messages_return", "displayName": "Collect Return", "displayOrder": 13}
     ]
   },
   "metrics": [

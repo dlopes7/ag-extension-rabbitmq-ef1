@@ -18,18 +18,18 @@ class Queue:
         self.messages_unacknowledged = raw_json.get('messages_unacknowledged', 0)
         self.consumers = raw_json.get('consumers', 0)
 
-        self.publish = 0
-        self.deliver_get = 0
-        self.ack = 0
-        self.redeliver = 0
-        self.return_unroutable = 0
+        self.messages_publish = 0
+        self.messages_deliver_get = 0
+        self.messages_ack = 0
+        self.messages_redeliver = 0
+        self.messages_return = 0
 
         if 'message_stats' in raw_json:
-            self.publish = raw_json.get('message_stats').get('publish', 0)
-            self.redeliver = raw_json.get('message_stats').get('redeliver', 0)
-            self.deliver_get = raw_json.get('message_stats').get('deliver_get', 0)
-            self.return_unroutable = raw_json.get('message_stats').get('return_unroutable', 0)
-            self.ack = raw_json.get('message_stats').get('ack', 0)
+            self.messages_publish = raw_json.get('message_stats').get('publish', 0)
+            self.messages_redeliver = raw_json.get('message_stats').get('redeliver', 0)
+            self.messages_deliver_get = raw_json.get('message_stats').get('deliver_get', 0)
+            self.messages_return = raw_json.get('message_stats').get('return_unroutable', 0)
+            self.messages_ack = raw_json.get('message_stats').get('ack', 0)
 
         # print(pprint.pformat(raw_json))
 

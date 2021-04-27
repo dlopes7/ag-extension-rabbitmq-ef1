@@ -3,5 +3,12 @@
   "rabbitmq_username": "guest",
   "rabbitmq_password": "guest",
   "queues_include": ".*",
-  "queues_ignore": "q1"
+  "queues_ignore": "q1",
+  "collect_messages_ready": true,
+  "collect_messages_unacknowledged": true,
+  "collect_messages_ack": true,
+  "collect_messages_deliver_get": true,
+  "collect_messages_publish": true,
+  "collect_messages_redeliver": true,
+  "collect_messages_return": true
 }
