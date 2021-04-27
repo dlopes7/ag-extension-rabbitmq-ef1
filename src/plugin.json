@@ -1,0 +1,73 @@
+{
+  "name": "custom.remote.python.rabbit_mq",
+  "version": "1.005",
+  "metricGroup": "tech.RabbitMQ",
+  "technologies": ["RabbitMQ"],
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "source": {
+    "package": "rabbitmq_extension",
+    "className": "RabbitMQExtension",
+    "install_requires": []
+  },
+  "properties": [
+    {"key": "rabbitmq_nodes", "type": "Textarea"},
+    {"key": "rabbitmq_username", "type": "String", "defaultValue": "guest"},
+    {"key": "cluster_name", "type": "String", "defaultValue": "RabbitMQ Cluster"},
+    {"key": "rabbitmq_password", "type": "Password"},
+    {"key": "queues_include", "type": "Textarea", "defaultValue": ".*"},
+    {"key": "queues_ignore", "type": "Textarea"}
+  ],
+  "configUI": {
+    "displayName": "RabbitMQ",
+    "properties": [
+      {"key": "rabbitmq_nodes", "displayName": "RabbitMQ Nodes", "displayHint": "One <host>:<port> pair per line. Only add nodes that belong to the same cluster", "displayOrder": 1},
+      {"key": "rabbitmq_username", "displayName": "RabbitMQ User", "displayOrder": 2},
+      {"key": "rabbitmq_password", "displayName": "RabbitMQ Password", "displayOrder": 3},
+      {"key": "cluster_name", "displayName": "RabbitMQ Cluster Name", "displayHint": "This will be used as the Dynatrace group name, it does not have to match the real cluster name", "displayOrder": 4},
+      {"key": "queues_include", "displayName": "Queues to include", "displayHint": "One regex expression per line, use .* to monitor all", "displayOrder": 5},
+      {"key": "queues_ignore", "displayName": "Queues to ignore", "displayHint": "One regex expression per line, has precedence over include", "displayOrder": 6}
+    ]
+  },
+  "metrics": [
+    {"timeseries": {"key": "messages_ready", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Ready", "topxconfig": {"limit": 1000}}},
+    {"timeseries": {"key": "messages_unacknowledged", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Unacknowledged", "topxconfig": {"limit": 1000}}},
+    {"timeseries": {"key": "messages_ack", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Unacknowledged", "topxconfig": {"limit": 1000}}},
+    {"timeseries": {"key": "messages_deliver_get", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Deliver Get", "topxconfig": {"limit": 1000}}},
+    {"timeseries": {"key": "messages_publish", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Publish", "topxconfig": {"limit": 1000}}},
+    {"timeseries": {"key": "messages_redeliver", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Redeliver", "topxconfig": {"limit": 1000}}},
+    {"timeseries": {"key": "messages_return", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Return", "topxconfig": {"limit": 1000}}}
+  ],
+  "ui": {
+    "keymetrics": [
+      {"key": "messages_ready", "displayname": "Ready", "mergeaggregation": "SUM"},
+      {"key": "messages_deliver_get", "displayname": "Deliver", "mergeaggregation": "SUM"}
+    ]
+  },
+  "charts": [
+    {"group": "Messages", "title": "Message rates", "series":  [
+      {"key": "messages_ack", "displayname": "Acknowledge"},
+      {"key": "messages_deliver_get", "displayname": "Deliver Get"},
+      {"key": "messages_publish", "displayname": "Publish"},
+      {"key": "messages_redeliver", "displayname": "Redeliver"},
+      {"key": "messages_return", "displayname": "Return"}
+    ]},
+    {"group": "Messages", "title": "Messages", "series":  [
+      {"key": "messages_ready", "displayname": "Ready"},
+      {"key": "messages_unacknowledged", "displayname": "Unacknowledged"}
+    ]}
+  ],
+  "keycharts": [
+    {"group": "Messages", "title": "Message rates", "series":  [
+      {"key": "messages_ack", "displayname": "Acknowledge", "mergeaggregation": "SUM"},
+      {"key": "messages_deliver_get", "displayname": "Deliver Get", "mergeaggregation": "SUM"},
+      {"key": "messages_publish", "displayname": "Publish", "mergeaggregation": "SUM"},
+      {"key": "messages_redeliver", "displayname": "Redeliver", "mergeaggregation": "SUM"},
+      {"key": "messages_return", "displayname": "Return", "mergeaggregation": "SUM"}
+    ]},
+    {"group": "Messages", "title": "Messages", "series":  [
+      {"key": "messages_ready", "displayname": "Ready", "mergeaggregation": "SUM"},
+      {"key": "messages_unacknowledged", "displayname": "Unacknowledged", "mergeaggregation": "SUM"}
+    ]}
+  ]
+}
