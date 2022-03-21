@@ -1,17 +1,18 @@
 import re
-from typing import Optional, Dict, Callable
+from typing import Optional, Dict
 
 from ruxit.api.base_plugin import RemoteBasePlugin
 from ruxit.api.selectors import ExplicitSelector, EntityType
 from ruxit.api.topology_builder import Device
 
-from rabbitmq_api import RabbitMQClient, Cluster, Node
+from rabbitmq_api import RabbitMQClient, Cluster
 
 
 class RabbitMQExtension(RemoteBasePlugin):
 
     def initialize(self, **kwargs):
         self.executions = -1
+        self.metrics_cache = {}
 
     def query(self, **kwargs) -> None:
         self.executions += 1
@@ -68,16 +69,26 @@ class RabbitMQExtension(RemoteBasePlugin):
                 if monitor:
                     device = nodes.get(queue.node)
 
-                    metric_methods: Dict[str, Callable] = {
-                        "messages_unacknowledged": device.absolute,
-                        "messages_ready": device.absolute,
-                        "messages_ack": device.per_second,
-                        "messages_deliver_get": device.per_second,
-                        "messages_publish": device.per_second,
-                        "messages_redeliver": device.per_second,
-                        "messages_return": device.per_second,
+                    metrics: Dict[str, bool] = {
+                        "messages_unacknowledged": False,
+                        "messages_ready": False,
+                        "messages_ack": True,
+                        "messages_deliver_get": True,
+                        "messages_publish": True,
+                        "messages_redeliver": True,
+                        "messages_return": True,
                     }
 
-                    for metric, method in metric_methods.items():
+                    for metric, delta in metrics.items():
+                        value = getattr(queue, metric)
+                        if delta:
+                            metric_id = f"{queue.name}_{queue.vhost}_{metric}"
+                            if metric_id in self.metrics_cache:
+                                value = value - self.metrics_cache[metric_id]
+                                self.metrics_cache[metric_id] = getattr(queue, metric)
+                            else:
+                                self.metrics_cache[metric_id] = value
+                                continue
+
                         if self.config.get(f"collect_{metric}"):
-                            method(metric,  getattr(queue, metric), dimensions={"VirtualHost": queue.vhost, "Queue": queue.name})
+                            device.absolute(metric,  value, dimensions={"VirtualHost": queue.vhost, "Queue": queue.name})

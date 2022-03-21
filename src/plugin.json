@@ -1,6 +1,6 @@
 {
   "name": "custom.remote.python.rabbit_mq",
-  "version": "1.009",
+  "version": "1.010",
   "metricGroup": "tech.RabbitMQ",
   "technologies": ["RabbitMQ"],
   "type": "python",
