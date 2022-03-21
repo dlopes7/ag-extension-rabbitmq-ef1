@@ -138,16 +138,14 @@ class VirtualHost:
 
 class RabbitMQClient:
 
-    def __init__(self, ip: str, port: int, username: str, password: str, logger=default_logger):
-        self.ip = ip
-        self.port = port
+    def __init__(self, address: str, username: str, password: str, logger=default_logger):
         self.logger = logger
         self.auth = (username, password)
 
-        self.base_url = f'http://{ip}:{port}'
+        self.base_url = address.rstrip("/")
 
     def make_request(self, url, method='GET'):
-        r = requests.request(method, url, auth=self.auth, timeout=30)
+        r = requests.request(method, url, auth=self.auth, timeout=30, verify=False)
         if r.status_code >= 300:
             self.logger.error(f'RabbitMQClient - Got {r} while calling "{url}"')
         else:

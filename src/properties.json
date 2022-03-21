@@ -1,5 +1,5 @@
 {
-  "rabbitmq_nodes": "localhost:15671\nlocalhost:15672\nlocalhost:15673\nlocalhost:15674",
+  "rabbitmq_nodes": "http://localhost:15671\nhttp://localhost:15672\nhttp://localhost:15673\nhttp://localhost:15674",
   "rabbitmq_username": "guest",
   "rabbitmq_password": "guest",
   "queues_include": ".*",

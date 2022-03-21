@@ -1,6 +1,6 @@
 {
   "name": "custom.remote.python.rabbit_mq",
-  "version": "1.007",
+  "version": "1.009",
   "metricGroup": "tech.RabbitMQ",
   "technologies": ["RabbitMQ"],
   "type": "python",
@@ -29,7 +29,7 @@
   "configUI": {
     "displayName": "RabbitMQ",
     "properties": [
-      {"key": "rabbitmq_nodes", "displayName": "RabbitMQ Nodes", "displayHint": "One <host>:<port> pair per line. Only add nodes that belong to the same cluster", "displayOrder": 1},
+      {"key": "rabbitmq_nodes", "displayName": "RabbitMQ Nodes", "displayHint": "One management url per line. Only add nodes that belong to the same cluster, example: http://my.host:15672", "displayOrder": 1},
       {"key": "rabbitmq_username", "displayName": "RabbitMQ User", "displayOrder": 2},
       {"key": "rabbitmq_password", "displayName": "RabbitMQ Password", "displayOrder": 3},
       {"key": "cluster_name", "displayName": "RabbitMQ Cluster Name", "displayHint": "This will be used as the Dynatrace group name, it does not have to match the real cluster name", "displayOrder": 4},
@@ -48,7 +48,7 @@
   "metrics": [
     {"timeseries": {"key": "messages_ready", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Ready", "topxconfig": {"limit": 1000}}},
     {"timeseries": {"key": "messages_unacknowledged", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Unacknowledged", "topxconfig": {"limit": 1000}}},
-    {"timeseries": {"key": "messages_ack", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Unacknowledged", "topxconfig": {"limit": 1000}}},
+    {"timeseries": {"key": "messages_ack", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Acknowledged", "topxconfig": {"limit": 1000}}},
     {"timeseries": {"key": "messages_deliver_get", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Deliver Get", "topxconfig": {"limit": 1000}}},
     {"timeseries": {"key": "messages_publish", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Publish", "topxconfig": {"limit": 1000}}},
     {"timeseries": {"key": "messages_redeliver", "unit": "Count", "dimensions": ["Queue", "VirtualHost"],"displayname": "Messages Redeliver", "topxconfig": {"limit": 1000}}},

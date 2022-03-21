@@ -31,8 +31,7 @@ class RabbitMQExtension(RemoteBasePlugin):
             cluster: Optional[Cluster] = None
 
             for node_address in node_addresses:
-                ip, port = node_address.split(":")
-                rabbit = RabbitMQClient(ip, port, username, password, logger=self.logger)
+                rabbit = RabbitMQClient(node_address, username, password, logger=self.logger)
                 try:
                     cluster = rabbit.cluster
                     self.logger.info(f"Successfully connected to {node_address}")
