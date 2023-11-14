@@ -1,14 +1,6 @@
 {
-  "rabbitmq_nodes": "http://localhost:15671\nhttp://localhost:15672\nhttp://localhost:15673\nhttp://localhost:15674",
-  "rabbitmq_username": "guest",
-  "rabbitmq_password": "guest",
-  "queues_include": ".*",
-  "queues_ignore": "q1",
-  "collect_messages_ready": true,
-  "collect_messages_unacknowledged": true,
-  "collect_messages_ack": true,
-  "collect_messages_deliver_get": true,
-  "collect_messages_publish": true,
-  "collect_messages_redeliver": true,
-  "collect_messages_return": true
+  "rabbitmq_node": "https://b-d9835915-0721-47f1-994c-b43c7b6dd800.mq.us-east-1.amazonaws.com",
+  "rabbitmq_username": "dynatrace",
+  "rabbitmq_password": "password",
+  "queues_include": ".*"
 }

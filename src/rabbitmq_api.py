@@ -145,7 +145,7 @@ class RabbitMQClient:
         self.base_url = address.rstrip("/")
 
     def make_request(self, url, method='GET'):
-        r = requests.request(method, url, auth=self.auth, timeout=30, verify=False)
+        r = requests.request(method, url, auth=self.auth, timeout=30)
         if r.status_code >= 300:
             self.logger.error(f'RabbitMQClient - Got {r} while calling "{url}"')
         else:
